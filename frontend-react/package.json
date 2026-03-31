@@ -5,7 +5,7 @@
   "type": "module",
   "description": "OpenCraft 前端 - AI 驱动的无限元素合成游戏",
   "author": "AICorp",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/aicorp-cn/opencraft.git"
