@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "properties": {
+    "word": { "type": "string", "description": "Result concept, natural phrase." },
+    "emoji": { "type": "string", "description": "Single UTF-8 emoji." },
+    "lang": { "type": "string", "description": "BCP 47 tag." },
+    "reasoning": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Physical/Chemical", "Cultural/Pop", "Conceptual/Metaphorical", "Linguistic/Wordplay", "Functional/Tool"],
+          "description": "Classification of the logic used."
+        },
+        "role_first": {
+          "type": "string",
+          "description": "The semantic role of the first input (e.g., 'Material', 'Modifier', 'Symbol')."
+        },
+        "role_second": {
+          "type": "string",
+          "description": "The semantic role of the second input."
+        },
+        "trace": {
+          "type": "string",
+          "description": "Derivation Path: Explains How the first input interacts with the second input to create the result. Focus on the interaction logic."
+        }
+      },
+      "required": ["type", "trace"]
+    },
+    "explanation": {
+      "type": "string",
+      "description": "Concept Definition: Explains WHAT the result is. Encyclopedic definition, distinct from the derivation path."
+    }
+  },
+  "required": ["word", "emoji", "lang", "reasoning", "explanation"],
+  "additionalProperties": false
+}

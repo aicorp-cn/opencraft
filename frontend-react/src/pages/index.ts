@@ -1,0 +1,1 @@
+export { HomePageV2 } from './HomePageV2'
