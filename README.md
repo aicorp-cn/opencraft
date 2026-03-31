@@ -226,15 +226,6 @@ opencraft/
 - [贡献指南](CONTRIBUTING.md) - 如何参与项目开发
 
 ---
-![赞助我们](./docs/assets/support_us.jpg)
-<div align="center">
-
-**如果这个项目对你有帮助，请给一个 ⭐ Star 支持我们！**
-
-Made with ❤️ by AICorp
-
-</div>
----
 
 ## 🗺️ Roadmap
 
@@ -336,6 +327,17 @@ git push origin feature/your-feature
 **AICorp**
 
 [![GitHub](https://img.shields.io/badge/GitHub-aicorp--cn-181717?logo=github)](https://github.com/aicorp-cn)
+
+</div>
+
+---
+
+![赞助我们](./docs/assets/support_us.jpg)
+<div align="center">
+
+**如果这个项目对你有帮助，请给一个 ⭐ Star 支持我们！**
+
+Made with ❤️ by AICorp
 
 </div>
 
