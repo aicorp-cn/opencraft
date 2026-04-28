@@ -1,0 +1,42 @@
+name: build and push to ACR
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set env
+        run: |
+          echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
+          echo "NAMESPACE=aicorp" >> $GITHUB_ENV
+      - name: 调试 Secret 是否正确读取
+        run: |
+          # 读取到变量里
+          USER="${{ secrets.ACR_USERNAME }}"
+          PWD="${{ secrets.ACR_PASSWORD }}"
+          # 输出长度（不会泄露密码）
+          echo "用户名长度：${#USER}"
+          echo "密码长度：${#PWD}"
+          # 输出前 5 位（确认内容）
+          echo "用户名开头：${USER:0:5}"
+          echo "密码开头：${PWD:0:5}"
+      - name: Docker login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            --password-stdin
+      - name: Build and Push Backend
+        run: |
+          IMAGE=opencraft-backend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./server-python
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
+      - name: Build and Push Frontend
+        run: |
+          IMAGE=opencraft-frontend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./frontend-react
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
