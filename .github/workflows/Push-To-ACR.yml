@@ -16,7 +16,12 @@ jobs:
         run: |
           echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
           echo "NAMESPACE=aicorp" >> $GITHUB_ENV
-
+          
+      - name: Debug secrets
+        run: |
+          echo "用户名长度：${#{{ secrets.ACR_USERNAME }}}"
+          echo "密码长度：${#{{ secrets.ACR_PASSWORD }}}"
+    
       # ====================== 登录 ACR（最安全标准写法） ======================
       - name: Docker login to ACR
         run: echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
