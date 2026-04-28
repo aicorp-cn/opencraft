@@ -33,7 +33,7 @@ jobs:
       #    password: ${{ secrets.ACR_PASSWORD }}          
       - name: Docker login to ACR
         run: |
-          echo "${{ secrets.ACR_PASSWORD }}" | sudo docker login https://${{ env.REGISTRY }} -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+          echo ${{ secrets.ACR_PASSWORD }} | sudo docker login ${{ env.REGISTRY }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
       - name: Build and Push Backend
         run: |
           IMAGE=opencraft-backend
