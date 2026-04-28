@@ -15,8 +15,8 @@ jobs:
       - name: 调试 Secret 是否正确读取
         run: |
           # 读取到变量里
-          USER="${{ secrets.ACR_USERNAME }}"
-          PWD="${{ secrets.ACR_PASSWORD }}"
+          USER="${{ secrets.USERNAME }}"
+          PWD="${{ secrets.PWD2 }}"
           # 输出长度（不会泄露密码）
           echo "用户名长度：${#USER}"
           echo "密码长度：${#PWD}"
@@ -33,7 +33,7 @@ jobs:
       #    password: ${{ secrets.ACR_PASSWORD }}          
       - name: Docker login to ACR
         run: |
-          echo "${{ secrets.ACR_PASSWORD }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+          echo "${{ secrets.PWD2 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
       - name: Build and Push Backend
         run: |
           IMAGE=opencraft-backend
