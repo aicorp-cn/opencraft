@@ -12,19 +12,7 @@ jobs:
         run: |
           echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
           echo "NAMESPACE=aicorp" >> $GITHUB_ENV
-      - name: 调试 Secret 是否正确读取
-        run: |
-          # 读取到变量里
-          USER="${{ secrets.USERNAME }}"
-          PWD="${{ secrets.PWD2 }}"
-          # 输出长度（不会泄露密码）
-          echo "用户名长度：${#USER}"
-          echo "密码长度：${#PWD}"
-          # 输出前 5 位（确认内容）
-          echo "用户名开头：${USER:0:38}"
-          echo "密码开头：${PWD:0:15}"
-          echo "REGISTRY: ${{ env.REGISTRY }}"
-          echo "REGISTRY: ${{ env.NAMESPACE }}"
+          echo "PWD3=AiCorpCn2026" >> $GITHUB_ENV
       #- name: Login to Aliyun ACR
       #  uses: docker/login-action@v3
       #  with:
@@ -37,7 +25,7 @@ jobs:
             echo "Error: USERNAME or PWD2 secrets are not set"
             exit 1
           fi
-          echo "${{ secrets.PWD2 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
+          echo "${{ env.PWD3 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
         shell: bash
   
       #- name: Docker login to ACR
