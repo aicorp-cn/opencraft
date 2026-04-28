@@ -27,7 +27,7 @@ jobs:
             exit 1
           fi
           #echo "${{ env.PWD3 }}" | docker login "${{ env.REGISTRY }}" -u "${{ env.USERNAME }}" --password-stdin
-          DOCKER_DEBUG=1 DOCKER_CLI_EXPERIMENTAL=1 docker login "crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" -u "Kenny_ali@1156804943442178.onaliyun.com" -p "AiCorpCn2026"
+          docker login "crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" -u "Kenny_ali@1156804943442178" -p "AiCorpCn2026"
         shell: bash
   
       #- name: Docker login to ACR
