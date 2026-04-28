@@ -30,10 +30,19 @@ jobs:
       #  with:
       #    registry: crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com
       #    username: ${{ secrets.ACR_USERNAME }}
-      #    password: ${{ secrets.ACR_PASSWORD }}          
+      #    password: ${{ secrets.ACR_PASSWORD }}    
       - name: Docker login to ACR
         run: |
+          if [ -z "${{ secrets.USERNAME }}" ] || [ -z "${{ secrets.PWD2 }}" ]; then
+            echo "Error: USERNAME or PWD2 secrets are not set"
+            exit 1
+          fi
           echo "${{ secrets.PWD2 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
+        shell: bash
+  
+      #- name: Docker login to ACR
+      #  run: |
+      #    echo "${{ secrets.PWD2 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
       - name: Build and Push Backend
         run: |
           IMAGE=opencraft-backend
