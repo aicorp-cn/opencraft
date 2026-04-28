@@ -1,0 +1,40 @@
+name: build and push to ACR
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ====================== 配置你的信息 ======================
+      - name: Set env
+        run: |
+          echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
+          echo "NAMESPACE=aicorp" >> $GITHUB_ENV
+
+      # ====================== 登录 ACR（最安全标准写法） ======================
+      - name: Docker login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            --password-stdin
+
+      # ====================== 构建并推送 BACKEND ======================
+      - name: Build and Push Backend
+        run: |
+          IMAGE=opencraft-backend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./backend
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
+
+      # ====================== 构建并推送 FRONTEND ======================
+      - name: Build and Push Frontend
+        run: |
+          IMAGE=opencraft-frontend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./frontend
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG          
