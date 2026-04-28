@@ -12,27 +12,11 @@ jobs:
         run: |
           echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
           echo "NAMESPACE=aicorp" >> $GITHUB_ENV
-          echo "PWD3=AiCorpCn2026" >> $GITHUB_ENV
-          echo "USERNAME=Kenny_ali@1156804943442178.onaliyun.com" >> $GITHUB_ENV
-      #- name: Login to Aliyun ACR
-      #  uses: docker/login-action@v3
-      #  with:
-      #    registry: crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com
-      #    username: ${{ secrets.ACR_USERNAME }}
-      #    password: ${{ secrets.ACR_PASSWORD }}    
       - name: Docker login to ACR
         run: |
-          if [ -z "${{ secrets.USERNAME }}" ] || [ -z "${{ secrets.PWD2 }}" ]; then
-            echo "Error: USERNAME or PWD2 secrets are not set"
-            exit 1
-          fi
-          #echo "${{ env.PWD3 }}" | docker login "${{ env.REGISTRY }}" -u "${{ env.USERNAME }}" --password-stdin
-          docker login "crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" -u "Kenny_ali@1156804943442178" -p "AiCorpCn2026"
-        shell: bash
-  
-      #- name: Docker login to ACR
-      #  run: |
-      #    echo "${{ secrets.PWD2 }}" | docker login "${{ env.REGISTRY }}" -u "${{ secrets.USERNAME }}" --password-stdin
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            --password-stdin
       - name: Build and Push Backend
         run: |
           IMAGE=opencraft-backend
