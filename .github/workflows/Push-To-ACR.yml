@@ -26,7 +26,8 @@ jobs:
             echo "Error: USERNAME or PWD2 secrets are not set"
             exit 1
           fi
-          echo "${{ env.PWD3 }}" | docker login "${{ env.REGISTRY }}" -u "${{ env.USERNAME }}" --password-stdin
+          #echo "${{ env.PWD3 }}" | docker login "${{ env.REGISTRY }}" -u "${{ env.USERNAME }}" --password-stdin
+          docker login "${{ env.REGISTRY }}" -u "${{ env.USERNAME }}" -p "${{ env.PWD3 }}"
         shell: bash
   
       #- name: Docker login to ACR
