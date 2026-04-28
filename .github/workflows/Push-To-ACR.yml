@@ -1,0 +1,31 @@
+name: build and push to ACR
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set env
+        run: |
+          echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
+          echo "NAMESPACE=aicorp" >> $GITHUB_ENV
+      - name: Docker login to ACR
+        run: |
+          echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ env.REGISTRY }} \
+            -u ${{ secrets.ACR_USERNAME }} \
+            --password-stdin
+      - name: Build and Push Backend
+        run: |
+          IMAGE=opencraft-backend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./server-python
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
+      - name: Build and Push Frontend
+        run: |
+          IMAGE=opencraft-frontend
+          TAG=latest
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./frontend-react
+          docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
