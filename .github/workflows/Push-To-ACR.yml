@@ -28,7 +28,7 @@ jobs:
         run: |
           IMAGE=opencraft-backend
           TAG=latest
-          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./backend
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./server-python
           docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG
 
       # ====================== 构建并推送 FRONTEND ======================
@@ -36,5 +36,5 @@ jobs:
         run: |
           IMAGE=opencraft-frontend
           TAG=latest
-          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./frontend
+          docker build -t ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG ./frontend-react
           docker push ${{ env.REGISTRY }}/${{ env.NAMESPACE }}/$IMAGE:$TAG          
