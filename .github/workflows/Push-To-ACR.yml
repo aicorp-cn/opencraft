@@ -15,16 +15,16 @@ jobs:
       - name: 调试 Secret 是否正确读取
         run: |
           # 读取到变量里
-          USER="${{ secrets.ACR_USERNAME }}"
-          PWD="${{ secrets.ACR_PASSWORD }}"
+          #USER="${{ secrets.ACR_USERNAME }}"
+          #PWD="${{ secrets.ACR_PASSWORD }}"
           # 输出长度（不会泄露密码）
-          echo "用户名长度：${#USER}"
-          echo "密码长度：${#PWD}"
+          #echo "用户名长度：${#USER}"
+          #echo "密码长度：${#PWD}"
           # 输出前 5 位（确认内容）
-          echo "用户名开头：${USER:0:38}"
-          echo "密码开头：${PWD:0:17}"
-          echo "REGISTRY: ${{ env.REGISTRY }}"
-          echo "REGISTRY: ${{ env.NAMESPACE }}"
+          #echo "用户名开头：${USER:0:38}"
+          #echo "密码开头：${PWD:0:17}"
+          #echo "REGISTRY: ${{ env.REGISTRY }}"
+          #echo "REGISTRY: ${{ env.NAMESPACE }}"
       #- name: Login to Aliyun ACR
       #  uses: docker/login-action@v3
       #  with:
@@ -33,9 +33,7 @@ jobs:
       #    password: ${{ secrets.ACR_PASSWORD }}          
       - name: Docker login to ACR
         run: |
-          echo "${{ secrets.ACR_PASSWORD }}" | sudo docker login ${{ env.REGISTRY }} \
-            -u ${{ secrets.ACR_USERNAME }} \
-            --password-stdin
+          echo "${{ secrets.ACR_PASSWORD }}" | sudo docker login ${{ env.REGISTRY }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
       - name: Build and Push Backend
         run: |
           IMAGE=opencraft-backend
