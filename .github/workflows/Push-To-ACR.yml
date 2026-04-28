@@ -13,7 +13,7 @@ jobs:
       # ====================== 配置你的信息 ======================
       - name: Set env
         run: |
-          echo "REGISTRY=crpi-mmpes07n91z8fk3d.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
+          echo "REGISTRY=crpi-mmpes07n91z8fk3d-vpc.cn-hongkong.personal.cr.aliyuncs.com" >> $GITHUB_ENV
           echo "NAMESPACE=aicorp" >> $GITHUB_ENV
 
       # ====================== 登录 ACR（最安全标准写法） ======================
