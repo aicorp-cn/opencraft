@@ -21,8 +21,8 @@ jobs:
           echo "用户名长度：${#USER}"
           echo "密码长度：${#PWD}"
           # 输出前 5 位（确认内容）
-          echo "用户名开头：${USER}"
-          echo "密码开头：${PWD}"
+          echo "用户名开头：${USER:0:39}"
+          echo "密码开头：${PWD:0:18}"
       - name: Login to Aliyun ACR
         uses: docker/login-action@v3
         with:
