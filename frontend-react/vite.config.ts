@@ -15,7 +15,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3100',
+        target: 'http://127.0.0.1:3000',
         changeOrigin: true,
         // 不再重写路径，后端路由已包含 /api 前缀
       },
