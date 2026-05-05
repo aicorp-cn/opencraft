@@ -24,7 +24,7 @@ class Settings:
     
     # LLM 配置 - 支持 OpenAI 兼容协议的云端服务
     # 可选提供商: OpenAI, DeepSeek, 智谱AI, Moonshot, 硅基流动, 本地 Ollama
-    LLM_BASE_URL: str = os.getenv("LLM_BASE_URL", "https://api.openai.com/v1")
+    LLM_BASE_URL: str = os.getenv("LLM_BASE_URL", os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1"))
     LLM_API_KEY: str = os.getenv("LLM_API_KEY", os.getenv("OPENAI_API_KEY", ""))
     LLM_MODEL: str = os.getenv("LLM_MODEL", os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
     
